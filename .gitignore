@@ -1,0 +1,40 @@
+# Binaries
+bin/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Build output
+dist/
+build/
+
+# Go test cache and coverage
+*.test
+*.out
+coverage.html
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+docker-compose.override.yml
+
+# Dependency directories (vendoring is optional)
+vendor/
+
+# Air (live reload)
+tmp/
