@@ -1,0 +1,37 @@
+{
+  "permissions": {
+    "allow": [
+      "Read"
+    ],
+    "deny": [
+      "Bash(rm *)",
+      "Bash(rm -rf *)",
+      "Bash(rmdir *)",
+      "Bash(unlink *)",
+      "Bash(find * -delete)",
+      "Bash(find * -exec rm *)",
+      "Bash(trash *)",
+      "Bash(shred *)"
+    ],
+    "ask": [
+      "Bash(rm /Users/shohelshamim/AppDev/Shohel-App/microservices-go/*)"
+    ],
+    "additionalDirectories": [
+      "/Users/shohelshamim"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "input=$(cat); cmd=$(echo \"$input\" | jq -r '.tool_input.command // \"\"'); if echo \"$cmd\" | grep -qE '(rm|rmdir|unlink|shred|trash)'; then outside=$(echo \"$cmd\" | grep -vE '/Users/shohelshamim/AppDev/Shohel-App/microservices-go'); if [ -n \"$outside\" ]; then echo '{\"continue\": false, \"stopReason\": \"Blocked: remove/delete commands outside the project directory are not allowed.\"}'; exit 0; fi; fi; echo '{\"continue\": true}'",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}
